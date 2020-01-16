@@ -1,0 +1,101 @@
+﻿@model DemoApps.Models.GuestResponse
+
+@{
+    ViewBag.Title = "CreateRsvp";
+}
+
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            type: "GET",
+            url: "/guest/GetAllRsvp",
+            date: "",
+            success: function (data) {
+                var s = '<option value="-1">Please Select a event</option>';
+                for (var i = 0; i < data.length; i++) {
+                    s += '<option value="' + data[i].ID + '">' + data[i].Name + '</option>';
+                }
+                $("#MasterEventId").html(s);
+            }
+        });
+    });
+</script>
+
+<h2>CreateRsvp</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
+    <h4>GuestResponse</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.NamaLengkap, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.NamaLengkap, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.NamaLengkap, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Handphone, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Handphone, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Handphone, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.WillAttend, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <div class="checkbox">
+                @Html.DropDownListFor(x => x.WillAttend, new[]
+                {
+                    new  SelectListItem() {Text="Yes, I'll be there",
+                    Value = bool.TrueString},
+                    new SelectListItem() {Text="No, I cant come",
+                    Value = bool.FalseString}
+                }, "Choose an option", new { @class = "form-control" })
+            </div>
+            
+            @Html.ValidationMessageFor(model => model.WillAttend, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.MasterEventID, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(x => x.MasterEventID, (IEnumerable<SelectListItem>) ViewData["DataEvent"] as SelectList, "Choose an option", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.MasterEventID, "", new { @class = "text-danger"})
+        </div>
+    </div>
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.MasterEventID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.MasterEventID, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.MasterEventID, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Submit" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

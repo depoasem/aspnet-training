@@ -1,0 +1,67 @@
+﻿@using System.Configuration
+@using System.Net
+@using System.Net.Mail
+
+@model DemoApps.Models.GuestResponse
+
+@{ 
+    try
+    {
+        string bodyMail = "Dear Mr/Mrs. " + Model.NamaLengkap + "<br/>";
+
+        if(Model.WillAttend == true)
+        {
+            bodyMail += "<p><br/> THanks for yout attendance, we will waiting presence<p/><br/>";
+            bodyMail += "Warm regards, <br/> Administrator";
+        }
+        else
+        {
+            bodyMail += "<p><br/> Sorry to hear that you can't home, but thanks for leing us know.<p/><br/>";
+            bodyMail += "Warm regards, <br/> Administrator";
+        }
+
+        MailMessage m = new MailMessage();
+        m.Subject = "Attendance Confirmation";
+        m.Body = bodyMail;
+        m.IsBodyHtml = true;
+
+        m.From = new MailAddress("no-reply@drac.my.id");
+
+        m.To.Add(new MailAddress(Model.Email));
+
+        SmtpClient smtp = new SmtpClient();
+        smtp.Host = "mail.drac.my.id";
+        smtp.EnableSsl = true;
+        smtp.UseDefaultCredentials = true;
+        smtp.Port = 587;
+
+        string EmailAccount = ConfigurationManager.AppSettings["usernameEmail"];
+        string EmailPassword = ConfigurationManager.AppSettings["passwordEmail"];
+
+        NetworkCredential authinfo = new NetworkCredential(EmailAccount, EmailPassword);
+
+        smtp.Credentials = authinfo;
+        smtp.Send(m);
+    }
+    catch(Exception ex)
+    {
+        @:<br/> Sorry - there is something error in your configuration.<br/>
+    }
+}
+
+<div class="text-center">
+    <h1>
+        Thank you, @Model.NamaLengkap
+    </h1>
+
+    <div class="lead">
+        @if (Model.WillAttend == true)
+        {
+            @:<br/><p>Thanks for your attendance, we will waiting presence</p><br/>
+        }
+        else
+        {
+            @:<br /><p>Sorry to hear that you cant come</p><br/>
+        }
+    </div>
+</div>

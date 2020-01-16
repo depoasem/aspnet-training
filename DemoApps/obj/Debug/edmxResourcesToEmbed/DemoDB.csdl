@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DemoDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="MasterEvent">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EventName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="EventDescription" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="EventDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="EventDateExpired" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Participants" Relationship="Self.FK_Participant_MasterEvents" FromRole="MasterEvents" ToRole="Participant" />
+  </EntityType>
+  <EntityType Name="Participant">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="NamaLengkap" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Handphone" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="WillAttend" Type="Boolean" Nullable="false" />
+    <Property Name="MasterEventId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="MasterEvent" Relationship="Self.FK_Participant_MasterEvents" FromRole="Participant" ToRole="MasterEvents" />
+  </EntityType>
+  <Association Name="FK_Participant_MasterEvents">
+    <End Role="MasterEvents" Type="Self.MasterEvent" Multiplicity="1" />
+    <End Role="Participant" Type="Self.Participant" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MasterEvents">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Participant">
+        <PropertyRef Name="MasterEventId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DemoDBEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="MasterEvents" EntityType="Self.MasterEvent" />
+    <EntitySet Name="Participants" EntityType="Self.Participant" />
+    <AssociationSet Name="FK_Participant_MasterEvents" Association="Self.FK_Participant_MasterEvents">
+      <End Role="MasterEvents" EntitySet="MasterEvents" />
+      <End Role="Participant" EntitySet="Participants" />
+    </AssociationSet>
+    <FunctionImport Name="deleteParticipant">
+      <Parameter Name="ID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="editParticipant">
+      <Parameter Name="ID" Mode="In" Type="Int32" />
+      <Parameter Name="NamaLengkap" Mode="In" Type="String" />
+      <Parameter Name="Email" Mode="In" Type="String" />
+      <Parameter Name="HP" Mode="In" Type="String" />
+      <Parameter Name="Attend" Mode="In" Type="Boolean" />
+      <Parameter Name="MasterEventID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="getAllParticipant" ReturnType="Collection(DemoDBModel.getAllParticipant_Result)" />
+    <FunctionImport Name="getParticipantByID" ReturnType="Collection(DemoDBModel.getParticipantByID_Result)">
+      <Parameter Name="ID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="insertParticipant">
+      <Parameter Name="NamaLengkap" Mode="In" Type="String" />
+      <Parameter Name="Email" Mode="In" Type="String" />
+      <Parameter Name="HP" Mode="In" Type="String" />
+      <Parameter Name="Attend" Mode="In" Type="Boolean" />
+      <Parameter Name="MasterEventID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="tblUsers" EntityType="DemoDBModel.tblUser" />
+    <FunctionImport Name="deleteUser">
+      <Parameter Name="ID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="editUser">
+      <Parameter Name="ID" Mode="In" Type="Int32" />
+      <Parameter Name="Username" Mode="In" Type="String" />
+      <Parameter Name="Password" Mode="In" Type="String" />
+      <Parameter Name="Email" Mode="In" Type="String" />
+      <Parameter Name="Name" Mode="In" Type="String" />
+      <Parameter Name="Role" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="getAllUser" ReturnType="Collection(DemoDBModel.getAllUser_Result)" />
+    <FunctionImport Name="getUserByID" ReturnType="Collection(DemoDBModel.getUserByID_Result)">
+      <Parameter Name="ID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="insertUser">
+      <Parameter Name="Username" Mode="In" Type="String" />
+      <Parameter Name="Password" Mode="In" Type="String" />
+      <Parameter Name="Email" Mode="In" Type="String" />
+      <Parameter Name="Name" Mode="In" Type="String" />
+      <Parameter Name="Role" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="checkUser" ReturnType="Collection(DemoDBModel.checkUser_Result)">
+      <Parameter Name="Username" Mode="In" Type="String" />
+      <Parameter Name="Password" Mode="In" Type="String" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="getAllParticipant_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="NamaLengkap" Nullable="false" MaxLength="250" />
+    <Property Type="String" Name="Email" Nullable="false" MaxLength="250" />
+    <Property Type="String" Name="Handphone" Nullable="false" MaxLength="250" />
+    <Property Type="Boolean" Name="WillAttend" Nullable="false" />
+    <Property Type="Int32" Name="MasterEventId" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="getParticipantByID_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="NamaLengkap" Nullable="false" MaxLength="250" />
+    <Property Type="String" Name="Email" Nullable="false" MaxLength="250" />
+    <Property Type="String" Name="Handphone" Nullable="false" MaxLength="250" />
+    <Property Type="Boolean" Name="WillAttend" Nullable="false" />
+    <Property Type="Int32" Name="MasterEventId" Nullable="false" />
+  </ComplexType>
+  <EntityType Name="tblUser">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Username" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="Role" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <ComplexType Name="getAllUser_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="Username" Nullable="false" MaxLength="150" />
+    <Property Type="String" Name="Password" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Email" Nullable="false" MaxLength="150" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="150" />
+    <Property Type="String" Name="Role" Nullable="false" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="getUserByID_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="Username" Nullable="false" MaxLength="150" />
+    <Property Type="String" Name="Password" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Email" Nullable="false" MaxLength="150" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="150" />
+    <Property Type="String" Name="Role" Nullable="false" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="checkUser_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="Username" Nullable="false" MaxLength="150" />
+    <Property Type="String" Name="Password" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Email" Nullable="false" MaxLength="150" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="150" />
+    <Property Type="String" Name="Role" Nullable="false" MaxLength="50" />
+  </ComplexType>
+</Schema>

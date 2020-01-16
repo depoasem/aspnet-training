@@ -1,0 +1,58 @@
+﻿@model IEnumerable<DemoApps.Models.GuestResponse>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "CreateRsvp", "Guest")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NamaLengkap)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Handphone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WillAttend)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MasterEventID)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.NamaLengkap)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Handphone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WillAttend)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MasterEventID)
+        </td>
+        <td>
+            <a class="btn btn-primary" href="/guest/editrsvp?ID=@item.ID">Edit</a>
+            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+        </td>
+    </tr>
+}
+
+</table>

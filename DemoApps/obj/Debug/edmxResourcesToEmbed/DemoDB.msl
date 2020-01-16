@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DemoDBModelStoreContainer" CdmEntityContainer="DemoDBEntities1">
+    <EntitySetMapping Name="MasterEvents">
+      <EntityTypeMapping TypeName="DemoDBModel.MasterEvent">
+        <MappingFragment StoreEntitySet="MasterEvents">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="EventName" ColumnName="EventName" />
+          <ScalarProperty Name="EventDescription" ColumnName="EventDescription" />
+          <ScalarProperty Name="EventDate" ColumnName="EventDate" />
+          <ScalarProperty Name="EventDateExpired" ColumnName="EventDateExpired" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Participants">
+      <EntityTypeMapping TypeName="DemoDBModel.Participant">
+        <MappingFragment StoreEntitySet="Participant">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="NamaLengkap" ColumnName="NamaLengkap" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Handphone" ColumnName="Handphone" />
+          <ScalarProperty Name="WillAttend" ColumnName="WillAttend" />
+          <ScalarProperty Name="MasterEventId" ColumnName="MasterEventId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="deleteParticipant" FunctionName="DemoDBModel.Store.deleteParticipant" />
+    <FunctionImportMapping FunctionImportName="editParticipant" FunctionName="DemoDBModel.Store.editParticipant" />
+    <FunctionImportMapping FunctionImportName="getAllParticipant" FunctionName="DemoDBModel.Store.getAllParticipant">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DemoDBModel.getAllParticipant_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="NamaLengkap" ColumnName="NamaLengkap" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Handphone" ColumnName="Handphone" />
+          <ScalarProperty Name="WillAttend" ColumnName="WillAttend" />
+          <ScalarProperty Name="MasterEventId" ColumnName="MasterEventId" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="getParticipantByID" FunctionName="DemoDBModel.Store.getParticipantByID">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DemoDBModel.getParticipantByID_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="NamaLengkap" ColumnName="NamaLengkap" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Handphone" ColumnName="Handphone" />
+          <ScalarProperty Name="WillAttend" ColumnName="WillAttend" />
+          <ScalarProperty Name="MasterEventId" ColumnName="MasterEventId" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="insertParticipant" FunctionName="DemoDBModel.Store.insertParticipant" />
+    <EntitySetMapping Name="tblUsers">
+      <EntityTypeMapping TypeName="DemoDBModel.tblUser">
+        <MappingFragment StoreEntitySet="tblUsers">
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Role" ColumnName="Role" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="deleteUser" FunctionName="DemoDBModel.Store.deleteUser" />
+    <FunctionImportMapping FunctionImportName="editUser" FunctionName="DemoDBModel.Store.editUser" />
+    <FunctionImportMapping FunctionImportName="getAllUser" FunctionName="DemoDBModel.Store.getAllUser">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DemoDBModel.getAllUser_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Role" ColumnName="Role" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="getUserByID" FunctionName="DemoDBModel.Store.getUserByID">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DemoDBModel.getUserByID_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Role" ColumnName="Role" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="insertUser" FunctionName="DemoDBModel.Store.insertUser" />
+    <FunctionImportMapping FunctionImportName="checkUser" FunctionName="DemoDBModel.Store.checkUser">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DemoDBModel.checkUser_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Role" ColumnName="Role" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,41 @@
+﻿@*@{
+        ViewBag.Title = "Index";
+    }
+
+    <h2>Index</h2>*@
+<link href="~/Content/bootstrap-theme.css" rel="stylesheet" />
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+
+@{
+    Layout = null;
+}
+<
+
+<style>
+    .btn a {
+        color: white;
+        text-decoration: none;
+    }
+
+    body {
+        background-color: #F1F1F1;
+    }
+</style>
+
+<div class="text-center">
+    <h2>
+        We're going to have an exciting event.
+    </h2>
+    <h3>
+        And you are invited.
+    </h3>
+    @*<div class="btn btn-success">
+        @Html.ActionLink("Reservation event now", "RsvpForm")
+    </div>*@
+    <div class="btn btn-success">
+        @Html.ActionLink("List of RSVPs", "Index", "Guest")
+    </div>
+    <div class="btn btn-success">
+        @Html.ActionLink("List of Event", "Index", "EventMaster")
+    </div>
+</div>
